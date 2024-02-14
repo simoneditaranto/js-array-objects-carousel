@@ -46,7 +46,7 @@ images.forEach(function(currentElement) {
     
     // creo il contenitore dove inserirò l'immagine e il contenitore del titolo e testo 
     const sliderListElement = document.createElement("div");
-    sliderListElement.id = "img-container";
+    sliderListElement.classList.add("img-container");
     // lo inserisco nello slider
     sliderElement.append(sliderListElement);
 
@@ -58,7 +58,7 @@ images.forEach(function(currentElement) {
 
     // creo il contenitore delle informazioni e lo inserisco nel contenitore dell'immagine
     const infoElement = document.createElement("div");
-    infoElement.id = "info";
+    infoElement.classList.add("info");
     sliderListElement.appendChild(infoElement);
 
     // creo l'elemento per il titolo
@@ -77,7 +77,7 @@ images.forEach(function(currentElement) {
 });
 
 
-document.querySelector("#img-container").className = "active";
+document.querySelector(".img-container").classList.add("active");
 
 
 // -  salvo un contatore della slide
@@ -90,25 +90,27 @@ document.querySelector("#down-arrow").addEventListener("click", function() {
     console.log("freccia", slideNumber);
 
     if (slideNumber < images.length) {
+        console.log(slideNumber);
         // - prendo il contenitore attuale e rimuovo la classe "active"  
-        document.querySelector(`#slider #img-container:nth-of-type(${slideNumber+1})`).classList.remove("active");
+        // console.dir(document.querySelector(`#slider .img-container:nth-child(2)`));
+        document.querySelector(`#slider .img-container:nth-of-type(${slideNumber+1})`).classList.remove("active");
         
         // - aumento il contatore di 1
         slideNumber++;
 
         // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
-        document.querySelector(`#slider #img-container:nth-of-type(${slideNumber+1})`).classList.add("active");
+        document.querySelector(`#slider .img-container:nth-of-type(${slideNumber+1})`).classList.add("active");
 
     } else {
 
         // - prendo l'immagine attuale e le rimuovo la classe "active"  
-        document.querySelector(`#img-container:nth-of-type(${slideNumber+1})`).classList.remove("active");
+        document.querySelector(`.img-container:nth-of-type(${slideNumber+1})`).classList.remove("active");
 
         // resetto la variabile che mi conta l'immagine a cui sono arrivato
         slideNumber = 1;
 
         // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
-        document.querySelector(`#img-container:nth-of-type(${slideNumber+1})`).classList.add("active");
+        document.querySelector(`.img-container:nth-of-type(${slideNumber+1})`).classList.add("active");
 
     }
 
@@ -120,25 +122,25 @@ document.querySelector("#up-arrow").addEventListener("click", function() {
 
     if (slideNumber > 1) {
         // - prendo l'immagine attuale e le rimuovo la classe "active"  
-        document.querySelector(`#img-container:nth-of-type(${slideNumber+1})`).classList.remove("active");
+        document.querySelector(`.img-container:nth-of-type(${slideNumber+1})`).classList.remove("active");
 
         // - diminuisco il contatore di 1
         slideNumber--;
 
         // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
-        document.querySelector(`#img-container:nth-of-type(${slideNumber+1})`).classList.add("active");
+        document.querySelector(`.img-container:nth-of-type(${slideNumber+1})`).classList.add("active");
 
 
     } else {
 
         // - prendo l'immagine attuale e le rimuovo la classe "active"  
-        document.querySelector(`#img-container:nth-of-type(${slideNumber+1})`).classList.remove("active");
+        document.querySelector(`.img-container:nth-of-type(${slideNumber+1})`).classList.remove("active");
 
         // - metto il valore di slideNumebr = alla posizione dell'ultima immagine
         slideNumber = images.length;
 
         // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
-        document.querySelector(`#img-container:nth-of-type(${slideNumber+1})`).classList.add("active");
+        document.querySelector(`.img-container:nth-of-type(${slideNumber+1})`).classList.add("active");
 
     }
 
@@ -166,22 +168,35 @@ images.forEach((currentElement, index) => {
 
         function() {
 
-            // sostituisco immagine, titolo e testo all'immagine principale
-            // document.querySelector("#img-container.active img").src = `./${currentElement.image}`;
-            // document.querySelector("#img-container.active #info div:nth-of-type(1)").innerText = currentElement.title;
-            // document.querySelector("#img-container.active #info div:nth-of-type(2)").innerText = currentElement.text;
-
+            // prendo il contenitore principale dell'immagine che è visibile prima del click e rimuovo la classe active
+            document.querySelector(`.img-container:nth-of-type(${slideNumber+1})`).classList.remove("active");
+            // prendo il contenitore principale dell'immagine attuale e aggiungo la classe active
+            document.querySelector(`.img-container:nth-of-type(${index+2})`).classList.add("active");
+            
             // aggiorno il contatore delle frecce
-            document.querySelector(`#img-container:nth-of-type(${slideNumber+1})`).classList.remove("active");
-            document.querySelector(`#img-container:nth-of-type(${index+2})`).classList.add("active");
-
             slideNumber = index + 1;
-
-            console.log("img", slideNumber);
-            // test
 
         }
     );
 
 })
+// fine forEach()
+
+// ogni 3 secondi incremento il contatore dell'immagine attuale
+// rimuovo ed aggiungo la classe active rispettivamente all'elemento attuale e all'elemento successivo
+setInterval(function() {
+
+    document.querySelector(`.img-container:nth-of-type(${slideNumber+1})`).classList.remove("active");
+
+    slideNumber++;
+
+    document.querySelector(`.img-container:nth-of-type(${slideNumber+1})`).classList.add("active");
+
+
+    if(slideNumber+1 > images.length) {
+        slideNumber = 1;
+    }
+
+
+}, 3000);
 
