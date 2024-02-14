@@ -112,4 +112,27 @@
     width: 100%;
     height: calc(400px / 5);
     object-fit: cover;
-} 
+}
+
+#buttons{
+    margin-top: 25px;
+    margin-bottom: 25px;
+
+    text-align: center;
+}
+
+#buttons button{
+    padding: 10px 20px;
+}
+
+#start{
+    background-color: green;
+    
+    color: white;
+}
+
+#stop{
+    background-color: red;
+
+    color: white;
+}

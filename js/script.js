@@ -86,13 +86,10 @@ let slideNumber = 1;
 
 // -  QUANDO premo la freccia SU
 document.querySelector("#down-arrow").addEventListener("click", function() {
-    
-    console.log("freccia", slideNumber);
 
     if (slideNumber < images.length) {
-        console.log(slideNumber);
+
         // - prendo il contenitore attuale e rimuovo la classe "active"  
-        // console.dir(document.querySelector(`#slider .img-container:nth-child(2)`));
         document.querySelector(`#slider .img-container:nth-of-type(${slideNumber+1})`).classList.remove("active");
         
         // - aumento il contatore di 1
@@ -184,8 +181,24 @@ images.forEach((currentElement, index) => {
 
 // ogni 3 secondi incremento il contatore dell'immagine attuale
 // rimuovo ed aggiungo la classe active rispettivamente all'elemento attuale e all'elemento successivo
-setInterval(function() {
+let autoPlay = setInterval(autoCarousel , 1000);
 
+// gestisco i button stop and stop
+document.querySelector("#stop").addEventListener("click",
+    function() {
+        clearInterval(autoPlay);
+    }
+)
+
+document.querySelector("#start").addEventListener("click", 
+    function() {
+        autoPlay = setInterval(autoCarousel, 1000);
+    }
+);
+
+
+// dichiaro la funzione che cambia le immagini in automatico da utilizzare normalmente e quando clicco il bottone "start"
+function autoCarousel() {
     document.querySelector(`.img-container:nth-of-type(${slideNumber+1})`).classList.remove("active");
 
     slideNumber++;
@@ -196,7 +209,5 @@ setInterval(function() {
     if(slideNumber+1 > images.length) {
         slideNumber = 1;
     }
-
-
-}, 3000);
+}
 
