@@ -102,13 +102,13 @@
     border: 1px solid black;
 }
 
-#thumbnails .left-image{
+#thumbnails .right-image{
     width: 100%;
     height: calc(400px / 5);
 }
 
 
-#thumbnails .left-image img{
+#thumbnails .right-image img{
     width: 100%;
     height: calc(400px / 5);
     object-fit: cover;

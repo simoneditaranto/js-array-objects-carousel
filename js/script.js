@@ -83,32 +83,33 @@ document.querySelector("#img-container").className = "active";
 // -  salvo un contatore della slide
 let slideNumber = 1;
 
-
+console.log(slideNumber);
 
 // -  QUANDO premo la freccia SU
 document.querySelector("#up-arrow").addEventListener("click", function() {
+    console.log(slideNumber)
 
     if (slideNumber < images.length) {
 
         // - prendo il contenitore attuale e rimuovo la classe "active"  
-        document.querySelector(`#img-container:nth-of-type(${slideNumber+1})`).classList.remove("active");
+        document.querySelector(`#img-container:nth-of-type(${slideNumber})`).classList.remove("active");
 
         // - aumento il contatore di 1
         slideNumber++;
 
         // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
-        document.querySelector(`#img-container:nth-of-type(${slideNumber+1})`).classList.add("active");
+        document.querySelector(`#img-container:nth-of-type(${slideNumber})`).classList.add("active");
 
     } else {
 
         // - prendo l'immagine attuale e le rimuovo la classe "active"  
-        document.querySelector(`#img-container:nth-of-type(${slideNumber+1})`).classList.remove("active");
+        document.querySelector(`#img-container:nth-of-type(${slideNumber})`).classList.remove("active");
 
         // resetto la variabile che mi conta l'immagine a cui sono arrivato
         slideNumber = 1;
 
         // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
-        document.querySelector(`#img-container:nth-of-type(${slideNumber+1})`).classList.add("active");
+        document.querySelector(`#img-container:nth-of-type(${slideNumber})`).classList.add("active");
 
     }
 
@@ -141,7 +142,37 @@ document.querySelector("#down-arrow").addEventListener("click", function() {
         document.querySelector(`#img-container:nth-of-type(${slideNumber+1})`).classList.add("active");
 
     }
-    
-
 
 });
+
+
+// memorizzo l'elemento thumbnail
+const thumbElement = document.querySelector("#thumbnails");
+
+// creo i contenitori per le immagini da visualizzare sulla destra
+// per ogni elemento del mio array "images"
+images.forEach(currentElement => {
+
+    // creo il contenitore dell'immagine
+    const smallImageContainerElement = document.createElement("div");
+    smallImageContainerElement.classList.add("right-image");
+    thumbElement.append(smallImageContainerElement);
+
+    // creo l'immagine
+    const smallImageElement = document.createElement("img");
+    smallImageElement.src = `./${currentElement.image}`;
+    smallImageContainerElement.append(smallImageElement);
+
+    smallImageContainerElement.addEventListener("click",
+
+        function() {
+
+            document.querySelector("#img-container.active img").src = `./${currentElement.image}`;
+            document.querySelector("#img-container.active #info div:nth-of-type(1)").innerText = currentElement.title;
+            document.querySelector("#img-container.active #info div:nth-of-type(2)").innerText = currentElement.text;
+
+        }
+    );
+
+})
+
