@@ -24,15 +24,40 @@
     overflow: hidden;
 }
 
-#slider img {
+#img-container{
+    position: relative;
+
+    height: 100%;
+}
+
+#img-container img {
     width: 100%;
     height: 100%;
 
     object-fit: cover;
 }
 
+
 #slider img:not(.active) {
     display: none;
+}
+
+#img-container #info{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+    padding: 30px;
+
+    text-align: end;
+
+    color: white;
+}
+
+#img-container .title{
+    font-size: 1.2em;
+
+    margin-bottom: 5px;
 }
 
 #slider #arrows {

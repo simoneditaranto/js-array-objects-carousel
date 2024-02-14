@@ -1,93 +1,127 @@
-// Milestone 0:
-// Come nel primo carosello realizzato, focalizziamoci prima sulla creazione del markup statico: costruiamo il container e inseriamo l'immagine grande in modo da poter stilare lo slider.
+// // Milestone 1:
+// // Ora rimuoviamo i contenuti statici e usiamo l’array di oggetti letterali per popolare dinamicamente il carosello.
+// // Al click dell'utente sulle frecce verso sinistra o destra, la nuova immagine attiva diventerà visibile e dovremo aggiungervi titolo e testo.
 
 
-// bersagliamo lo slider
-// tramite un ciclo for prendiamo ogni indirizzo delle immagini dall'array
-// per ognuno di essi andremo a creare un elemento img dentro lo slider
+// // creo il mio array di riferimento
+// const images = [
+//     {
+//         image: 'img/01.webp',
+//         title: 'Marvel\'s Spiderman Miles Morale',
+//         text: 'Experience the rise of Miles Morales as the new hero masters incredible, explosive new powers to become his own Spider-Man.',
+//     }, 
 
-const images = ["./img/01.webp", "./img/02.webp", "./img/03.webp", "./img/04.webp", "./img/05.webp"];
+//     {
+//         image: 'img/02.webp',
+//         title: 'Ratchet & Clank: Rift Apart',
+//         text: 'Go dimension-hopping with Ratchet and Clank as they take on an evil emperor from another reality.',
+//     }, 
+
+//     {
+//         image: 'img/03.webp',
+//         title: 'Fortnite',
+//         text: "Grab all of your friends and drop into Epic Games Fortnite, a massive 100 - player face - off that combines looting, crafting, shootouts and chaos.",
+//     }, 
+
+//     {
+//         image: 'img/04.webp',
+//         title: 'Stray',
+//         text: 'Lost, injured and alone, a stray cat must untangle an ancient mystery to escape a long-forgotten city',
+//     },
+
+//     {
+//         image: 'img/05.webp',
+//         title: "Marvel's Avengers",
+//         text: 'Marvel\'s Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.',
+//     }
+// ];
+
+// // const images = ["./img/01.webp", "./img/02.webp", "./img/03.webp", "./img/04.webp", "./img/05.webp"];
 
 
-// bersagliamo lo slider
-const sliderElement = document.getElementById("slider");
+// // bersagliamo lo slider
+// const sliderElement = document.getElementById("slider");
 
 
-// tramite un ciclo for prendiamo ogni indirizzo delle immagini dall'array
-for (let i = 0; i < images.length; i++) {
+// // tramite un ciclo forEach itero il mio array delle immagini
+// images.forEach(function(currentElement) {
+    
+//     const imgElement = document.createElement("img");
 
-    sliderElement.innerHTML += `<img src="./img/0${i + 1}.webp" alt="immagine ${i + 1}">`;
+//     // per ogni elemento del mio array prendo il valore della proprietà che ha come chiave "image"
+//     // sliderElement.innerHTML += `<img src="./${currentElement.image}">`;
+//     imgElement.src = `./${currentElement.image}`;
+//     sliderElement.append(imgElement);
 
-    // per ognuno di essi andremo a creare un elemento img dentro lo slider
-
-}
-
-document.querySelector("#slider img:nth-of-type(1)").className = "active";
-
-
-// -  salvo un contatore della slide
-let slideNumber = 1;
+// });
 
 
-
-// -  QUANDO premo la freccia SU
-document.querySelector("#up-arrow").addEventListener("click", function() {
+// document.querySelector("#slider img:nth-of-type(1)").className = "active";
 
 
-    if (slideNumber < images.length) {
+// // -  salvo un contatore della slide
+// let slideNumber = 1;
 
-        // - prendo l'immagine attuale e le rimuovo la classe "active"  
-        document.querySelector(`#slider img:nth-of-type(${slideNumber})`).classList.remove("active");
 
-        // - aumento il contatore di 1
-        slideNumber++;
 
-        // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
-        document.querySelector(`#slider img:nth-of-type(${slideNumber})`).classList.add("active");
+// // -  QUANDO premo la freccia SU
+// document.querySelector("#up-arrow").addEventListener("click", function() {
 
-    } else {
 
-        // - prendo l'immagine attuale e le rimuovo la classe "active"  
-        document.querySelector(`#slider img:nth-of-type(${slideNumber})`).classList.remove("active");
+//     if (slideNumber < images.length) {
 
-        // resetto la variabile che mi conta l'immagine a cui sono arrivato
-        slideNumber = 1;
+//         // - prendo l'immagine attuale e le rimuovo la classe "active"  
+//         document.querySelector(`#slider img:nth-of-type(${slideNumber})`).classList.remove("active");
 
-        // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
-        document.querySelector(`#slider img:nth-of-type(${slideNumber})`).classList.add("active");
+//         // - aumento il contatore di 1
+//         slideNumber++;
 
-    }
+//         // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
+//         document.querySelector(`#slider img:nth-of-type(${slideNumber})`).classList.add("active");
+
+//     } else {
+
+//         // - prendo l'immagine attuale e le rimuovo la classe "active"  
+//         document.querySelector(`#slider img:nth-of-type(${slideNumber})`).classList.remove("active");
+
+//         // resetto la variabile che mi conta l'immagine a cui sono arrivato
+//         slideNumber = 1;
+
+//         // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
+//         document.querySelector(`#slider img:nth-of-type(${slideNumber})`).classList.add("active");
+
+//     }
 
         
-});
+// });
 
-// QUANDO premo la freccia GIU'
-document.querySelector("#down-arrow").addEventListener("click", function() {
+// // QUANDO premo la freccia GIU'
+// document.querySelector("#down-arrow").addEventListener("click", function() {
 
-    if (slideNumber > 1) {
-        // - prendo l'immagine attuale e le rimuovo la classe "active"  
-        document.querySelector(`#slider img:nth-of-type(${slideNumber})`).classList.remove("active");
+//     if (slideNumber > 1) {
+//         // - prendo l'immagine attuale e le rimuovo la classe "active"  
+//         document.querySelector(`#slider img:nth-of-type(${slideNumber})`).classList.remove("active");
 
-        // - diminuisco il contatore di 1
-        slideNumber--;
+//         // - diminuisco il contatore di 1
+//         slideNumber--;
 
-        // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
-        document.querySelector(`#slider img:nth-of-type(${slideNumber})`).classList.add("active");
+//         // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
+//         document.querySelector(`#slider img:nth-of-type(${slideNumber})`).classList.add("active");
 
 
-    } else {
+//     } else {
 
-        // - prendo l'immagine attuale e le rimuovo la classe "active"  
-        document.querySelector(`#slider img:nth-of-type(${slideNumber})`).classList.remove("active");
+//         // - prendo l'immagine attuale e le rimuovo la classe "active"  
+//         document.querySelector(`#slider img:nth-of-type(${slideNumber})`).classList.remove("active");
 
-        // - metto il valore di slideNumebr = alla posizione dell'ultima immagine
-        slideNumber = images.length;
+//         // - metto il valore di slideNumebr = alla posizione dell'ultima immagine
+//         slideNumber = images.length;
 
-        // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
-        document.querySelector(`#slider img:nth-of-type(${slideNumber})`).classList.add("active");
+//         // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
+//         document.querySelector(`#slider img:nth-of-type(${slideNumber})`).classList.add("active");
 
-    }
+//     }
     
 
 
-});
+// });
