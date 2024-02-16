@@ -87,30 +87,7 @@ let slideNumber = 1;
 // -  QUANDO premo la freccia SU
 document.querySelector("#down-arrow").addEventListener("click", function() {
 
-    if (slideNumber < images.length) {
-
-        // - prendo il contenitore attuale e rimuovo la classe "active"  
-        document.querySelector(`#slider section:nth-of-type(${slideNumber})`).classList.remove("active");
-        
-        // - aumento il contatore di 1
-        slideNumber++;
-
-        // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
-        document.querySelector(`#slider section:nth-of-type(${slideNumber})`).classList.add("active");
-
-    } else {
-
-        // - prendo l'immagine attuale e le rimuovo la classe "active"  
-        document.querySelector(`#slider section:nth-of-type(${slideNumber})`).classList.remove("active");
-
-        // resetto la variabile che mi conta l'immagine a cui sono arrivato
-        slideNumber = 1;
-
-        // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
-        document.querySelector(`#slider section:nth-of-type(${slideNumber})`).classList.add("active");
-
-    }
-
+    carousel();
         
 });
 
@@ -167,11 +144,12 @@ images.forEach((currentElement, index) => {
 
             // prendo il contenitore principale dell'immagine che è visibile prima del click e rimuovo la classe active
             document.querySelector(`#slider section:nth-of-type(${slideNumber})`).classList.remove("active");
-            // prendo il contenitore principale dell'immagine attuale e aggiungo la classe active
-            document.querySelector(`#slider section:nth-of-type(${index+1})`).classList.add("active");
             
             // aggiorno il contatore delle frecce
             slideNumber = index + 1;
+
+            // prendo il contenitore principale dell'immagine attuale e aggiungo la classe active
+            document.querySelector(`#slider section:nth-of-type(${slideNumber})`).classList.add("active");
 
         }
     );
@@ -181,7 +159,7 @@ images.forEach((currentElement, index) => {
 
 // ogni 3 secondi incremento il contatore dell'immagine attuale
 // // rimuovo ed aggiungo la classe active rispettivamente all'elemento attuale e all'elemento successivo
-let autoPlay = setInterval(autoCarousel , 1000);
+let autoPlay = setInterval(carousel , 1000);
 
 // gestisco i button stop and stop
 document.querySelector("#stop").addEventListener("click",
@@ -192,22 +170,36 @@ document.querySelector("#stop").addEventListener("click",
 
 document.querySelector("#start").addEventListener("click", 
     function() {
-        autoPlay = setInterval(autoCarousel, 1000);
+        autoPlay = setInterval(carousel, 1000);
     }
 );
 
 
-// dichiaro la funzione che cambia le immagini in automatico da utilizzare normalmente e quando clicco il bottone "start"
-function autoCarousel() {
-    document.querySelector(`#slider section:nth-of-type(${slideNumber})`).classList.remove("active");
+// dichiaro la funzione che cambia rimuove la classe active all'immagine attuale, incrementa il contatore e aggiunge la classe active all'immagine successiva
+function carousel() {
+    
+    if (slideNumber < images.length) {
 
-    slideNumber++;
+        // - prendo il contenitore attuale e rimuovo la classe "active"  
+        document.querySelector(`#slider section:nth-of-type(${slideNumber})`).classList.remove("active");
+        
+        // - aumento il contatore di 1
+        slideNumber++;
 
-    document.querySelector(`#slider section:nth-of-type(${slideNumber})`).classList.add("active");
+        // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
+        document.querySelector(`#slider section:nth-of-type(${slideNumber})`).classList.add("active");
 
+    } else {
 
-    if(slideNumber >= images.length) {
+        // - prendo l'immagine attuale e le rimuovo la classe "active"  
+        document.querySelector(`#slider section:nth-of-type(${slideNumber})`).classList.remove("active");
+
+        // resetto la variabile che mi conta l'immagine a cui sono arrivato
         slideNumber = 1;
+
+        // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
+        document.querySelector(`#slider section:nth-of-type(${slideNumber})`).classList.add("active");
+
     }
 }
 
