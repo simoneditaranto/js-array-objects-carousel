@@ -84,39 +84,17 @@ document.querySelector(".img-container").classList.add("active");
 let slideNumber = 1;
 
 
-// -  QUANDO premo la freccia SU
+// -  QUANDO premo la freccia GIU'
 document.querySelector("#down-arrow").addEventListener("click", function() {
 
-    carousel();
+    carouselNext();
         
 });
 
-// QUANDO premo la freccia GIU'
+// QUANDO premo la freccia SU'
 document.querySelector("#up-arrow").addEventListener("click", function() {
 
-    if (slideNumber > 1) {
-        // - prendo l'immagine attuale e le rimuovo la classe "active"  
-        document.querySelector(`#slider section:nth-of-type(${slideNumber})`).classList.remove("active");
-
-        // - diminuisco il contatore di 1
-        slideNumber--;
-
-        // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
-        document.querySelector(`#slider section:nth-of-type(${slideNumber})`).classList.add("active");
-
-
-    } else {
-
-        // - prendo l'immagine attuale e le rimuovo la classe "active"  
-        document.querySelector(`#slider section:nth-of-type(${slideNumber})`).classList.remove("active");
-
-        // - metto il valore di slideNumebr = alla posizione dell'ultima immagine
-        slideNumber = images.length;
-
-        // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
-        document.querySelector(`#slider section:nth-of-type(${slideNumber})`).classList.add("active");
-
-    }
+    carouselBefore();
 
 });
 
@@ -131,6 +109,9 @@ images.forEach((currentElement, index) => {
     // creo il contenitore dell'immagine
     const smallImageContainerElement = document.createElement("div");
     smallImageContainerElement.classList.add("right-image");
+    if(index == 0) {
+        smallImageContainerElement.classList.add("active");
+    }
     thumbElement.append(smallImageContainerElement);
 
     // creo l'immagine
@@ -144,12 +125,17 @@ images.forEach((currentElement, index) => {
 
             // prendo il contenitore principale dell'immagine che è visibile prima del click e rimuovo la classe active
             document.querySelector(`#slider section:nth-of-type(${slideNumber})`).classList.remove("active");
+
+            document.querySelector(`#thumbnails .right-image:nth-of-type(${slideNumber})`).classList.remove("active");
             
             // aggiorno il contatore delle frecce
             slideNumber = index + 1;
 
             // prendo il contenitore principale dell'immagine attuale e aggiungo la classe active
             document.querySelector(`#slider section:nth-of-type(${slideNumber})`).classList.add("active");
+
+            document.querySelector(`#thumbnails .right-image:nth-of-type(${slideNumber})`).classList.add("active");
+
 
         }
     );
@@ -159,47 +145,87 @@ images.forEach((currentElement, index) => {
 
 // ogni 3 secondi incremento il contatore dell'immagine attuale
 // // rimuovo ed aggiungo la classe active rispettivamente all'elemento attuale e all'elemento successivo
-let autoPlay = setInterval(carousel , 1000);
+// let autoPlay = setInterval(carouselNext , 1000);
 
-// gestisco i button stop and stop
-document.querySelector("#stop").addEventListener("click",
-    function() {
-        clearInterval(autoPlay);
-    }
-)
+// // gestisco i button stop and stop
+// document.querySelector("#stop").addEventListener("click",
+//     function() {
+//         clearInterval(autoPlay);
+//     }
+// )
 
-document.querySelector("#start").addEventListener("click", 
-    function() {
-        autoPlay = setInterval(carousel, 1000);
-    }
-);
+// document.querySelector("#start").addEventListener("click", 
+//     function() {
+//         autoPlay = setInterval(carouselNext, 1000);
+//     }
+// );
 
 
-// dichiaro la funzione che cambia rimuove la classe active all'immagine attuale, incrementa il contatore e aggiunge la classe active all'immagine successiva
-function carousel() {
+// dichiaro la funzione che rimuove la classe active all'immagine attuale, incrementa il contatore e aggiunge la classe active all'immagine successiva
+// utilizzata quando clicco il tasto giù, quando clicclo su in immagine nel thumbnail,
+function carouselNext() {
     
     if (slideNumber < images.length) {
 
         // - prendo il contenitore attuale e rimuovo la classe "active"  
         document.querySelector(`#slider section:nth-of-type(${slideNumber})`).classList.remove("active");
+        document.querySelector(`#thumbnails .right-image:nth-of-type(${slideNumber})`).classList.remove("active");
         
         // - aumento il contatore di 1
         slideNumber++;
 
         // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
         document.querySelector(`#slider section:nth-of-type(${slideNumber})`).classList.add("active");
+        document.querySelector(`#thumbnails .right-image:nth-of-type(${slideNumber})`).classList.add("active");
 
     } else {
 
         // - prendo l'immagine attuale e le rimuovo la classe "active"  
         document.querySelector(`#slider section:nth-of-type(${slideNumber})`).classList.remove("active");
+        document.querySelector(`#thumbnails .right-image:nth-of-type(${slideNumber})`).classList.remove("active");
 
         // resetto la variabile che mi conta l'immagine a cui sono arrivato
         slideNumber = 1;
 
         // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
         document.querySelector(`#slider section:nth-of-type(${slideNumber})`).classList.add("active");
+        document.querySelector(`#thumbnails .right-image:nth-of-type(${slideNumber})`).classList.add("active");
 
     }
+}
+
+// dichiaro la funzione che rimuove la classe active all'immagine attuale, decrementa il contatore e aggiunge la classe active all'immagine precedente
+// utilizzata quanto clicclo la freccia su, quando clicco su un immagine del thumbnail
+function carouselBefore() {
+
+    if (slideNumber > 1) {
+        // - prendo l'immagine attuale e le rimuovo la classe "active"  
+        document.querySelector(`#slider section:nth-of-type(${slideNumber})`).classList.remove("active");
+        document.querySelector(`#thumbnails .right-image:nth-of-type(${slideNumber})`).classList.remove("active");
+
+        // - diminuisco il contatore di 1
+        slideNumber--;
+
+        // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
+        document.querySelector(`#slider section:nth-of-type(${slideNumber})`).classList.add("active");
+        document.querySelector(`#thumbnails .right-image:nth-of-type(${slideNumber})`).classList.add("active");
+
+
+    } else {
+
+        // - prendo l'immagine attuale e le rimuovo la classe "active"  
+        document.querySelector(`#slider section:nth-of-type(${slideNumber})`).classList.remove("active");
+        document.querySelector(`#thumbnails .right-image:nth-of-type(${slideNumber})`).classList.remove("active");
+
+        // - metto il valore di slideNumebr = alla posizione dell'ultima immagine
+        slideNumber = images.length;
+
+        // - prendo l'immagine con il nuovo contatore e le aggiungo la classe "active"
+        document.querySelector(`#slider section:nth-of-type(${slideNumber})`).classList.add("active");
+        document.querySelector(`#thumbnails .right-image:nth-of-type(${slideNumber})`).classList.add("active");
+
+
+    }
+
 }
 

@@ -98,8 +98,6 @@
 #thumbnails{
     width: 30%;
     height: 100%;
-
-    border: 1px solid black;
 }
 
 #thumbnails .right-image{
@@ -112,6 +110,14 @@
     width: 100%;
     height: calc(400px / 5);
     object-fit: cover;
+}
+
+#thumbnails .right-image.active{
+    border: 3px solid rgb(188, 186, 186);
+}
+
+#thumbnails .right-image:not(.active) {
+    opacity: 50%;
 }
 
 #buttons{
