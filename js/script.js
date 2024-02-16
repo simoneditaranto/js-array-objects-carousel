@@ -147,26 +147,49 @@ images.forEach((currentElement, index) => {
 let autoPlay;
 let playReverse;
 
+// memorizzo i tre bottoni
+buttonStartElement = document.querySelector("#start");
+buttonStopElement = document.querySelector("#stop");
+buttonReverseElement = document.querySelector("#reverse");
+
+buttonReverseElement.style.display = "none";
+buttonStopElement.style.display = "none";
+
 
 // quando premo stop si ferma lo scorrimento automatico delle immagini
-document.querySelector("#stop").addEventListener("click",
+buttonStopElement.addEventListener("click",
     function() {
         clearInterval(autoPlay);
         clearInterval(playReverse);
+        // quando premo stop il bottone stesso sparisce
+        // e si mostrano solo il tasto start e reverse
+        buttonStopElement.style.display = "none";
+        buttonStartElement.style.display = "inline-block";
+        buttonReverseElement.style.display = "inline-block";
     }
 )
 
 // quando premo start ogni 3 secondi le immagini andranno avanti
-document.querySelector("#start").addEventListener("click", 
+buttonStartElement.addEventListener("click", 
     function() {
         autoPlay = setInterval(carouselNext, 1000);
+        // quando premo start il bottone stesso e quello reverse spariscono
+        // e si mostra solo il tasto stop
+        buttonStartElement.style.display = "none";
+        buttonStopElement.style.display = "inline-block";
+        buttonReverseElement.style.display = "none";
     }
 );
 
 // quando premo reverse le immagini scorrono all'indietro
-document.querySelector("#reverse").addEventListener("click", 
+buttonReverseElement.addEventListener("click", 
     function() {
         playReverse = setInterval(carouselBefore, 1000);
+        // quando premo reverse il bottone stesso e quello start spariscono
+        // e si mostra solo il tasto stop
+        buttonStartElement.style.display = "none";
+        buttonStopElement.style.display = "inline-block";
+        buttonReverseElement.style.display = "none";
     }
 );
 
