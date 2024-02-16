@@ -143,20 +143,30 @@ images.forEach((currentElement, index) => {
 })
 // fine forEach()
 
-// ogni 3 secondi incremento il contatore dell'immagine attuale
-// // rimuovo ed aggiungo la classe active rispettivamente all'elemento attuale e all'elemento successivo
-let autoPlay = setInterval(carouselNext , 1000);
+// creo due variabili che mi serviranno per il "setInterval()" 
+let autoPlay;
+let playReverse;
 
-// gestisco i button stop and stop
+
+// quando premo stop si ferma lo scorrimento automatico delle immagini
 document.querySelector("#stop").addEventListener("click",
     function() {
         clearInterval(autoPlay);
+        clearInterval(playReverse);
     }
 )
 
+// quando premo start ogni 3 secondi le immagini andranno avanti
 document.querySelector("#start").addEventListener("click", 
     function() {
         autoPlay = setInterval(carouselNext, 1000);
+    }
+);
+
+// quando premo reverse le immagini scorrono all'indietro
+document.querySelector("#reverse").addEventListener("click", 
+    function() {
+        playReverse = setInterval(carouselBefore, 1000);
     }
 );
 
