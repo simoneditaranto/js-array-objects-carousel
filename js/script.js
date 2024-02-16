@@ -145,20 +145,20 @@ images.forEach((currentElement, index) => {
 
 // ogni 3 secondi incremento il contatore dell'immagine attuale
 // // rimuovo ed aggiungo la classe active rispettivamente all'elemento attuale e all'elemento successivo
-// let autoPlay = setInterval(carouselNext , 1000);
+let autoPlay = setInterval(carouselNext , 1000);
 
-// // gestisco i button stop and stop
-// document.querySelector("#stop").addEventListener("click",
-//     function() {
-//         clearInterval(autoPlay);
-//     }
-// )
+// gestisco i button stop and stop
+document.querySelector("#stop").addEventListener("click",
+    function() {
+        clearInterval(autoPlay);
+    }
+)
 
-// document.querySelector("#start").addEventListener("click", 
-//     function() {
-//         autoPlay = setInterval(carouselNext, 1000);
-//     }
-// );
+document.querySelector("#start").addEventListener("click", 
+    function() {
+        autoPlay = setInterval(carouselNext, 1000);
+    }
+);
 
 
 // dichiaro la funzione che rimuove la classe active all'immagine attuale, incrementa il contatore e aggiunge la classe active all'immagine successiva
